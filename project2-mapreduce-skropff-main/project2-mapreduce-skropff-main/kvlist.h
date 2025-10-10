@@ -9,8 +9,8 @@ typedef struct kvpair_t {
 } kvpair_t;
 
 typedef struct kvlist_t {
-  kvlist_node_t *head;
-  kvlist_node_t *tail;
+  kvpair_t *head;
+  kvpair_t *tail;
 } kvlist_t;
 
 /**
