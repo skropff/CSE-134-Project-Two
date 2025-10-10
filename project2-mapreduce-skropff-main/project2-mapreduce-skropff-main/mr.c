@@ -1,4 +1,4 @@
-#include "mr.h"
+e#include "mr.h"
 
 #include <pthread.h>
 #include <stdio.h>
@@ -14,7 +14,7 @@ typedef struct {
   kvlist_t *output;
 } map_group;
 
-typdef struct {
+typedef struct {
   reducer_t reducer;
   kvlist_t *lst;
   kvlist_t *output;
