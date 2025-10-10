@@ -8,6 +8,11 @@ typedef struct kvpair_t {
   char *value;
 } kvpair_t;
 
+typedef struct kvlist_t {
+  kvlist_node_t *head;
+  kvlist_node_t *tail;
+} kvlist_t;
+
 /**
  * `kvpair_new` creates a new `kvpair_t` by copying the provided `key` and
  * `value`.
