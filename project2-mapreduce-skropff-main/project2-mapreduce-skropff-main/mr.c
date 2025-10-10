@@ -1,4 +1,4 @@
-e#include "mr.h"
+#include "mr.h"
 
 #include <pthread.h>
 #include <stdio.h>
