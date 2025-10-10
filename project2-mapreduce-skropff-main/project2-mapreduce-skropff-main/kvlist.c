@@ -48,10 +48,7 @@ void kvlist_node_free(kvlist_node_t **node) {
   *node = NULL;
 }
 
-struct kvlist_t {
-  kvlist_node_t *head;
-  kvlist_node_t *tail;
-};
+
 
 kvlist_t *kvlist_new(void) {
   kvlist_t *list = (kvlist_t *)malloc(sizeof(kvlist_t));
