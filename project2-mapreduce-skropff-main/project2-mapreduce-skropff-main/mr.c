@@ -84,9 +84,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
   kvlist_t *lists[num_mapper];
   kvlist_t *lists2[num_mapper];
   kvlist_node_t *current;
-  kvpair_t *start;
   pthread_t mapper_id[num_mapper];
-  char space[] = " ";
   map_group input1;
   reduce_group input2;
   for (int i = 0; i < (int) num_mapper; i = i + 1) {
