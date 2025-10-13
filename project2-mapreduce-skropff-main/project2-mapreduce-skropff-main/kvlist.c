@@ -216,6 +216,6 @@ void kvlist_iterator_free(kvlist_iterator_t **iter) {
   *iter = NULL;
 }
 
-kvlist_node *get_head(kvlist_t *lst) {
+kvlist_node_t *get_head(kvlist_t *lst) {
   return lst->head;
 }
