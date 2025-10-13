@@ -32,7 +32,7 @@ void *mapper_prepare(void *arg) {
       // start->value = (char *) realloc(start->value, strlen(statt->value) + strlen(current->value) + 2);
       // strcat(start->value, space);
       // strcat(start->value, current->value);
-      (arg1->mapper)(current, arg1->output);
+      (arg1->mapper)(current->kv, arg1->output);
       current = current->next;
     }
   return NULL;
