@@ -219,3 +219,7 @@ void kvlist_iterator_free(kvlist_iterator_t **iter) {
 kvlist_node_t *get_head(kvlist_t *lst) {
   return lst->head;
 }
+
+kvpair_t *get_kv(kvlist_node_t *node) {
+  return node->kv;
+}
