@@ -126,7 +126,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
     pthread_create(mapper_id + i, NULL, (void *(*)(void *)) &mapper_prepare, (void *) (&input1));
   }
   for (int i = 0; i < num_mapper; i = i + 1) {
-    pthread_join(mapper_id + i, NULL);
+    pthread_join(mapper_id[i], NULL);
   }
   //Shuffle phase
   kvlist_t *lists3[num_reducer];
