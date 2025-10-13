@@ -57,7 +57,7 @@ void *reducer_prepare(void *arg) {
   char *string;
   string = NULL;
   while (current != NULL) {
-    if (string == NULL || (strcmp((get_kv(current))->key, string) != 0) {
+    if (string == NULL || (strcmp((get_kv(current))->key, string) != 0)) {
       if (string != NULL) {
         (arg1->reducer)(string, array[current], arg->output);
       }
