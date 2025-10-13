@@ -101,6 +101,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
       current = get_next(current);
     }
   }
+  printf("Bench\n");
   //Transititon from split to map phase
     /*
   for (int i = 0; i < (int) num_mapper; i = i + 1) {
