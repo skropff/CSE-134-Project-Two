@@ -52,12 +52,12 @@ void *reducer_prepare(void *arg) {
   count = 0;
   int size;
   size = 1;
-  kvlist_t *current;
-  current = (arg1->list)->head; 
+  kvlist_node_t *current;
+  current = get_head(arg1->list); 
   char *string;
   string = NULL;
   while (current != NULL) {
-    if (string == NULL || (strcmp(current->head, string) != 0)) {
+    if (string == NULL || ((strcmp(current->kv)->head, string) != 0)) {
       if (string != NULL) {
         (arg1->reducer)(string, array[current], arg->output);
       }
@@ -67,7 +67,7 @@ void *reducer_prepare(void *arg) {
         size = size * 2;
       }
       array[count] = kvlist_new();
-      string = current->key;
+      string = (current->kv)->key;
       kvlist_append(array[count], current);
     }
     else {
