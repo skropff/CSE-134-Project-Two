@@ -73,7 +73,7 @@ void *reducer_prepare(void *arg) {
     else {
       kvlist_append(array[count], get_kv(current));
     }
-    current = current->next;
+    current = get_next(current);
   }
   return NULL;
 }
