@@ -25,8 +25,8 @@ void *mapper_prepare(void *arg);
 void *mapper_prepare(void *arg) {
   map_group *arg1;
   arg1 = (map_group *) arg;
-  kvpair_t *current;
-  current = (arg1->input)->head;
+  kvlist_node_t *current;
+  current = get_head(arg1->input);
   // start = current;
   while (current != NULL) {
       // start->value = (char *) realloc(start->value, strlen(statt->value) + strlen(current->value) + 2);
