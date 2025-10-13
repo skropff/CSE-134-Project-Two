@@ -46,7 +46,7 @@ void *reducer_prepare(void *arg) {
   kvlist_sort(arg1->lst);
   //Create a realloc() array of linked list pointers. 
   kvlist_t **array;
-  array = (kvlist_t **) malloc(sizeof(kvlist *));
+  array = (kvlist_t **) malloc(sizeof(kvlist_t *));
   array[0] = kvlist_new();
   int count;
   count = 0;
