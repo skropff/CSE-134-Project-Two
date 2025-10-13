@@ -89,9 +89,10 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
   char space[] = " ";
   map_group input1;
   reduce_group input2;
-  for (int i = 0; i < num_mapper; i = i + 1) {
+  for (int i = 0; i < (int) num_mapper; i = i + 1) {
     lists[i] = kvlist_new();
     lists2[i] = kvlist_new();
+  }
   current = get_head(input);
   for (int i = 0;; i = i + 1) {
     if (current == NULL) {
@@ -104,7 +105,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
   }
   //Transititon from split to map phase
     /*
-  for (int i = 0; i < num_mapper; i = i + 1) {
+  for (int i = 0; i < (int) num_mapper; i = i + 1) {
     current = (lists[i])->head;
     start = current;
     while (current != NULL) {
@@ -119,22 +120,22 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
     */
     
   //Map phase
-  for (int i = 0; i < num_mapper; i = i + 1) {
+  for (int i = 0; i < (int) num_mapper; i = i + 1) {
     input1.mapper = mapper;
     input1.input = lists[i];
     input1.output = lists2[i];
     pthread_create(mapper_id + i, NULL, (void *(*)(void *)) &mapper_prepare, (void *) (&input1));
   }
-  for (int i = 0; i < num_mapper; i = i + 1) {
+  for (int i = 0; i < (int) num_mapper; i = i + 1) {
     pthread_join(mapper_id[i], NULL);
   }
   //Shuffle phase
   kvlist_t *lists3[num_reducer];
   kvlist_t *lists4[num_reducer];
-  for (int i = 0; i < num_reducer; i = i + 1) {
+  for (int i = 0; i < (int) num_reducer; i = i + 1) {
     lists3[i] = kvlist_new();
   }
-  for (int i = 0; i < num_mapper; i = i + 1) {
+  for (int i = 0; i < (int) num_mapper; i = i + 1) {
     current = get_head(lists2[i]);
     while (current == NULL) {
       kvlist_append(lists3[(hash(get_kv(current)->key)) % num_reducer], get_kv(current));
@@ -143,16 +144,16 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
   }
   //Reduce phase
   pthread_t reducer_id[num_reducer];
-  for (int i = 0; i < num_reducer; i = i + 1) {
+  for (int i = 0; i < (int) num_reducer; i = i + 1) {
     input2.reducer = reducer;
     input2.lst = lists3[i];
     input2.output = lists4[i];
-    pthread_create(reducer_id + i, NULL, (void *(*)(void *)) &reducer_prepare, (void *) input2);
+    pthread_create(reducer_id + i, NULL, (void *(*)(void *)) &reducer_prepare, (void *) &input2);
   }
-  for (int i = 0; i < num_reducer; i = i + 1) {
+  for (int i = 0; i < (int) num_reducer; i = i + 1) {
     pthread_join(reducer_id[i], NULL);
   }
-  for (int i = 0; i < num_reducer; i = i + 1) {
+  for (int i = 0; i < (int) num_reducer; i = i + 1) {
     kvlist_extend(output, lists4[i]);
   }
 }
