@@ -137,11 +137,12 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
   }
   for (int i = 0; i < (int) num_mapper; i = i + 1) {
     current = get_head(lists2[i]);
-    while (current == NULL) {
+    while (current != NULL) {
       kvlist_append(lists3[(hash(get_kv(current)->key)) % num_reducer], get_kv(current));
       current = get_next(current);
     }
   }
+  printf("Bench3\n");
   //Reduce phase
   pthread_t reducer_id[num_reducer];
   for (int i = 0; i < (int) num_reducer; i = i + 1) {
