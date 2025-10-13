@@ -98,7 +98,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
       break;
     }
     else {
-      kvlist_append(lists[i % num_mapper], current);
+      kvlist_append(lists[i % num_mapper], get_kv(current));
       current = current->next;
     }
   }
