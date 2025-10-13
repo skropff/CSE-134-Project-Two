@@ -91,3 +91,5 @@ kvpair_t *kvlist_iterator_next(kvlist_iterator_t *it);
  * `kvlist_iterator_free` frees `kvlist_iterator_t`.
  */
 void kvlist_iterator_free(kvlist_iterator_t **it);
+
+kvlist_node *get_head(kvlist_t *lst);
