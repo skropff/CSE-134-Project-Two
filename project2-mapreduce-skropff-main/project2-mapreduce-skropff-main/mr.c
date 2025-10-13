@@ -135,10 +135,10 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
     lists3[i] = kvlist_new();
   }
   for (int i = 0; i < num_mapper; i = i + 1) {
-    current = (lists2[i])->head;
+    current = get_head(lists2[i]);
     while (current == NULL) {
       kvlist_append(lists3[(hash(current->key)) % num_reducer], current);
-      current = current->next;
+      current = get_next(current);
     }
   }
   //Reduce phase
