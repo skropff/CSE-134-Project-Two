@@ -85,7 +85,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
   kvlist_t *lists2[num_mapper];
   kvpair_t *current;
   kvpair_t *start;
-  pthread_id mapper_id[num_mapper];
+  pthread_t mapper_id[num_mapper];
   char space[] = " ";
   map_group input1;
   reduce_group input2;
