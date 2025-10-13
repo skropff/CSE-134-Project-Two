@@ -63,7 +63,7 @@ void *reducer_prepare(void *arg) {
       }
       count = count + 1;
       if (count > size) {
-        array = (kvlist **) realloc(array, 2 * size);
+        array = (kvlist **) realloc(array, 2 * size * sizeof(kvlist_t *));
         size = size * 2;
       }
       array[count] = kvlist_new();
