@@ -142,11 +142,11 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
     }
   }
   //Reduce phase
-  pthread_id reducer_id[num_reducer];
+  pthread_t reducer_id[num_reducer];
   for (int i = 0; i < num_reducer; i = i + 1) {
-    input2->reducer = reducer;
-    input2->lst = lists3[i];
-    input2->output = lists4[i];
+    input2.reducer = reducer;
+    input2.lst = lists3[i];
+    input2.output = lists4[i];
     pthread_create(reducer_id + i, NULL, (void *(*)(void *)) &reducer_prepare, (void *) input2);
   }
   for (int i = 0; i < num_reducer; i = i + 1) {
