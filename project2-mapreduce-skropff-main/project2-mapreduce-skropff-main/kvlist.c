@@ -36,19 +36,22 @@ struct kvlist_node_t {
 };
 
 kvlist_node_t *kvlist_node_new(kvpair_t *kv) {
-  kvlist_t *node = (kvlist_node_t *)malloc(sizeof(kvlist_t));
+  kvlist_node_t *node = (kvlist_node_t *)malloc(sizeof(kvlist_node_t));
   node->kv = kv;
   node->next = NULL;
   return node;
 }
 
-void kvlist_node_free(kvlist_t **node) {
+void kvlist_node_free(kvlist_node_t **node) {
   kvpair_free(&(*node)->kv);
   free(*node);
   *node = NULL;
 }
 
-
+struct kvlist_t {
+  kvlist_node_t *head;
+  kvlist_node_t *tail;
+};
 
 kvlist_t *kvlist_new(void) {
   kvlist_t *list = (kvlist_t *)malloc(sizeof(kvlist_t));
@@ -58,9 +61,9 @@ kvlist_t *kvlist_new(void) {
 }
 
 void kvlist_free(kvlist_t **list) {
-  kvlist_t *node = (*list)->head;
+  kvlist_node_t *node = (*list)->head;
   while (node != NULL) {
-    kvlist_t *next = node->next;
+    kvlist_node_t *next = node->next;
     kvlist_node_free(&node);
     node = next;
   }
@@ -69,7 +72,7 @@ void kvlist_free(kvlist_t **list) {
 }
 
 void kvlist_append(kvlist_t *list, kvpair_t *pair) {
-  kvlist_t *node = (kvlist_t *)malloc(sizeof(kvlist_t));
+  kvlist_node_t *node = (kvlist_node_t *)malloc(sizeof(kvlist_node_t));
   node->kv = pair;
   node->next = NULL;
   if (list->head == NULL) {
@@ -95,10 +98,10 @@ void kvlist_extend(kvlist_t *list, kvlist_t *other) {
   other->tail = NULL;
 }
 
-void kvlist_node_split(kvlist_t *source, kvlist_t **front,
-                       kvlist_t **back) {
-  kvlist_t *p1 = source->next;
-  kvlist_t *p2 = source;
+void kvlist_node_split(kvlist_node_t *source, kvlist_node_t **front,
+                       kvlist_node_t **back) {
+  kvlist_node_t *p1 = source->next;
+  kvlist_node_t *p2 = source;
   while (p1 != NULL) {
     p1 = p1->next;
     if (p1 != NULL) {
@@ -111,9 +114,9 @@ void kvlist_node_split(kvlist_t *source, kvlist_t **front,
   p2->next = NULL;
 }
 
-kvlist_node_t *kvlist_node_merge(kvlist_t *a, kvlist_t *b) {
-  kvlist_t *result = NULL;
-  kvlist_t *current = NULL;
+kvlist_node_t *kvlist_node_merge(kvlist_node_t *a, kvlist_node_t *b) {
+  kvlist_node_t *result = NULL;
+  kvlist_node_t *current = NULL;
 
   if (a == NULL) {
     return b;
@@ -153,10 +156,10 @@ kvlist_node_t *kvlist_node_merge(kvlist_t *a, kvlist_t *b) {
   return result;
 }
 
-void kvlist_node_mergesort(kvlist_t **l) {
-  kvlist_t *head = *l;
-  kvlist_t *p1;
-  kvlist_t *p2;
+void kvlist_node_mergesort(kvlist_node_t **l) {
+  kvlist_node_t *head = *l;
+  kvlist_node_t *p1;
+  kvlist_node_t *p2;
   if (head == NULL || head->next == NULL) {
     return;
   }
@@ -189,7 +192,7 @@ void kvlist_print(int fd, kvlist_t *lst) {
 }
 
 struct kvlist_iterator_t {
-  kvlist_t *node;
+  kvlist_node_t *node;
 };
 
 kvlist_iterator_t *kvlist_iterator_new(kvlist_t *lst) {
