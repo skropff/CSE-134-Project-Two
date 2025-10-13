@@ -67,7 +67,7 @@ void *reducer_prepare(void *arg) {
         size = size * 2;
       }
       array[count] = kvlist_new();
-      string = (current->kv)->key;
+      string = (get_kv(current))->key;
       kvlist_append(array[count], current);
     }
     else {
