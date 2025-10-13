@@ -92,4 +92,4 @@ kvpair_t *kvlist_iterator_next(kvlist_iterator_t *it);
  */
 void kvlist_iterator_free(kvlist_iterator_t **it);
 
-kvlist_node *get_head(kvlist_t *lst);
+kvlist_node_t *get_head(kvlist_t *lst);
