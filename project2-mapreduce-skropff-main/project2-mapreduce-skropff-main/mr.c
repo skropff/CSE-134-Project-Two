@@ -99,7 +99,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
     }
     else {
       kvlist_append(lists[i % num_mapper], get_kv(current));
-      current = current->next;
+      current = get_next(current);
     }
   }
   //Transititon from split to map phase
