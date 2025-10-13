@@ -33,7 +33,7 @@ void *mapper_prepare(void *arg) {
       // strcat(start->value, space);
       // strcat(start->value, current->value);
       (arg1->mapper)(get_kv(current), arg1->output);
-      current = current->next;
+      current = get_next(current);
     }
   return NULL;
 }
