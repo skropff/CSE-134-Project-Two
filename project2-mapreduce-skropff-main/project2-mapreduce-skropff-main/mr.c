@@ -137,17 +137,20 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
   for (int i = 0; i < num_mapper; i = i + 1) {
     current = get_head(lists2[i]);
     while (current == NULL) {
-      kvlist_append(lists3[(hash(get_kv(current)->key)) % num_reducer], current);
+      kvlist_append(lists3[(hash(get_kv(current)->key)) % num_reducer], current->kv);
       current = get_next(current);
     }
   }
   //Reduce phase
-  pthread_id reducer_id[num_producer];
-  for (int i = 0; i < num_producer; i = i + 1) {
+  pthread_id reducer_id[num_reducer];
+  for (int i = 0; i < num_reducer; i = i + 1) {
     input2->reducer = reducer;
     input2->lst = lists3[i];
     input2->output = lists4[i];
     pthread_create(reducer_id + i, NULL, (void *(*)(void *)) &reducer_prepare, (void *) input2);
+  }
+  for (int i = 0; i < num_reducer; i = i + 1) {
+    pthread_join(reducer_id[i], NULL);
   }
   for (int i = 0; i < num_reducer; i = i + 1) {
     kvlist_extend(output, lists4[i]);
