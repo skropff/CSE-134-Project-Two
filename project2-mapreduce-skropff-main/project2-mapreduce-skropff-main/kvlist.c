@@ -223,3 +223,7 @@ kvlist_node_t *get_head(kvlist_t *lst) {
 kvpair_t *get_kv(kvlist_node_t *node) {
   return node->kv;
 }
+
+kvlist_node_t *get_next(kvlit_node_t *node) {
+  return node->next;
+}
