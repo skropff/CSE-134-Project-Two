@@ -53,7 +53,7 @@ void *reducer_prepare(void *arg) {
   int size;
   size = 1;
   kvlist_node_t *current;
-  current = get_head(arg1->list); 
+  current = get_head(arg1->lst); 
   char *string;
   string = NULL;
   while (current != NULL) {
