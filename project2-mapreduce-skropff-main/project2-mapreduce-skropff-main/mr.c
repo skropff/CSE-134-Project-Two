@@ -128,6 +128,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
   for (int i = 0; i < (int) num_mapper; i = i + 1) {
     pthread_join(mapper_id[i], NULL);
   }
+  printf("Bench2\n");
   //Shuffle phase
   kvlist_t *lists3[num_reducer];
   kvlist_t *lists4[num_reducer];
