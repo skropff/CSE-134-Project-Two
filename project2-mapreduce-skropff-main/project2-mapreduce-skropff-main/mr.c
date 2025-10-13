@@ -83,7 +83,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
   //Split phase
   kvlist_t *lists[num_mapper];
   kvlist_t *lists2[num_mapper];
-  kvpair_t *current;
+  kvlist_node_t *current;
   kvpair_t *start;
   pthread_t mapper_id[num_mapper];
   char space[] = " ";
