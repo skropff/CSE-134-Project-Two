@@ -151,6 +151,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
     input2.output = lists4[i];
     pthread_create(reducer_id + i, NULL, (void *(*)(void *)) &reducer_prepare, (void *) &input2);
   }
+  printf("Bench4\n");
   for (int i = 0; i < (int) num_reducer; i = i + 1) {
     pthread_join(reducer_id[i], NULL);
   }
