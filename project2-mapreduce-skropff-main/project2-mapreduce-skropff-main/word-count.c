@@ -60,6 +60,7 @@ void reducer(char *key, kvlist_t *lst, kvlist_t *output) {
 
   // iterate through lst
   kvlist_iterator_t *itor = kvlist_iterator_new(lst);
+  printf("reducer loop starting\n");
   for (;;) {
     kvpair_t *pair = kvlist_iterator_next(itor);
     if (pair == NULL) {
@@ -68,6 +69,7 @@ void reducer(char *key, kvlist_t *lst, kvlist_t *output) {
     // turn the value into an integer and increment the sum
     sum += atoi(pair->value);
   }
+  printf("reducer loop ending\n");
   kvlist_iterator_free(&itor);
 
   // turn `sum` back to a string and add to output
