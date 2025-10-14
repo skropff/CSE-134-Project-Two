@@ -90,6 +90,9 @@ void *reducer_prepare(void *arg) {
     current = get_next(current);
     // printf("ending loop\n");
   }
+  if (string != NULL) {
+    (arg1->reducer)(string, array[count], arg1->output);
+  }
   // printf("ending\n");
   return NULL;
 }
