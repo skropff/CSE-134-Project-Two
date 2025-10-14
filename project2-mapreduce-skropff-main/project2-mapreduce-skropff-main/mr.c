@@ -180,5 +180,6 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
   }
   for (int i = 0; i < (int) num_reducer; i = i + 1) {
     kvlist_extend(output, lists4[i]);
+    printf("extending\n");
   }
 }
