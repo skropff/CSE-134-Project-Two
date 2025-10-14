@@ -62,6 +62,7 @@ void *reducer_prepare(void *arg) {
     if (string == NULL || (strcmp((get_kv(current))->key, string) != 0)) {
       printf("A\n");
       if (string != NULL) {
+        printf("null\n");
         (arg1->reducer)(string, array[count], arg1->output);
       }
       count = count + 1;
