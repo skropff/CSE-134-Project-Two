@@ -76,7 +76,7 @@ void *reducer_prepare(void *arg) {
     }
     current = get_next(current);
   }
-  printf("ending\n")(
+  printf("ending\n");
   return NULL;
 }
 
