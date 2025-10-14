@@ -80,6 +80,7 @@ void kvlist_append(kvlist_t *list, kvpair_t *pair) {
     list->head = node;
   } else {
     printf("y\n");
+    printf("y list->tail is NULL: %d\n", list->tail == NULL);
     list->tail->next = node;
     printf("z\n");
   }
