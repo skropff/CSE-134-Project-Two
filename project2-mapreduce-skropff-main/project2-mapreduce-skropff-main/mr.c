@@ -160,6 +160,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
     current = get_head(lists2[i]);
     while (current != NULL) {
       kvlist_append(lists3[(hash(get_kv(current)->key)) % num_reducer], get_kv(current));
+      printf("appending 1\n");
       current = get_next(current);
     }
   }
