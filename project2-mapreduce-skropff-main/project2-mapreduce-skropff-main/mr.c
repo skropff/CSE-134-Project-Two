@@ -28,6 +28,7 @@ void *mapper_prepare(void *arg) {
   kvlist_node_t *current;
   current = get_head(arg1->input);
   // start = current;
+  printf("current is NULL mapping: %d\n", current == NULL);
   while (current != NULL) {
       // start->value = (char *) realloc(start->value, strlen(statt->value) + strlen(current->value) + 2);
       // strcat(start->value, space);
