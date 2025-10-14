@@ -76,8 +76,9 @@ void reducer(char *key, kvlist_t *lst, kvlist_t *output) {
   // turn `sum` back to a string and add to output
   char sum_string[32];
   sprintf(sum_string, "%d", sum);
-  kvlist_append(output, kvpair_new(key, sum_string));
   printf("bye\n");
+  kvlist_append(output, kvpair_new(key, sum_string));
+  printf("bye1\n");
 }
 
 int main(int argc, char **argv) {
