@@ -81,6 +81,7 @@ void kvlist_append(kvlist_t *list, kvpair_t *pair) {
   } else {
     printf("y\n");
     list->tail->next = node;
+    printf("z\n");
   }
   list->tail = node;
 }
