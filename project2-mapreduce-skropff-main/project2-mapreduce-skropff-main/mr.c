@@ -60,6 +60,7 @@ void *reducer_prepare(void *arg) {
   while (current != NULL) {
     printf("beginning loop\n");
     if (string == NULL || (strcmp((get_kv(current))->key, string) != 0)) {
+      printf("A\n");
       if (string != NULL) {
         (arg1->reducer)(string, array[count], arg1->output);
       }
@@ -73,6 +74,7 @@ void *reducer_prepare(void *arg) {
       kvlist_append(array[count], get_kv(current));
     }
     else {
+      printf("B\n");
       kvlist_append(array[count], get_kv(current));
     }
     printf("go\n");
