@@ -72,6 +72,7 @@ void *reducer_prepare(void *arg) {
       array[count] = kvlist_new();
       string = (get_kv(current))->key;
       kvlist_append(array[count], get_kv(current));
+      printf("ending A\n");
     }
     else {
       printf("B\n");
