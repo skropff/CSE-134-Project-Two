@@ -59,6 +59,9 @@ void *reducer_prepare(void *arg) {
   string = NULL;
   while (current != NULL) {
     // printf("beginning loop\n");
+    if (current != NULL) {
+      printf("current string: %s\n", (get_kv(current))->key);
+    }
     if (string == NULL || (strcmp((get_kv(current))->key, string) != 0)) {
       // printf("A\n");
       if (string != NULL) {
