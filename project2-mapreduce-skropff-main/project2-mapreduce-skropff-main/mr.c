@@ -41,7 +41,7 @@ void *mapper_prepare(void *arg) {
 void *reducer_prepare(void *arg);
 
 void *reducer_prepare(void *arg) {
-  printf("beginning\n");
+  // printf("beginning\n");
   reduce_group *arg1;
   arg1 = (reduce_group *) arg;
   kvlist_sort(arg1->lst);
@@ -58,17 +58,19 @@ void *reducer_prepare(void *arg) {
   char *string;
   string = NULL;
   while (current != NULL) {
-    printf("beginning loop\n");
+    // printf("beginning loop\n");
     if (string == NULL || (strcmp((get_kv(current))->key, string) != 0)) {
-      printf("A\n");
+      // printf("A\n");
       if (string != NULL) {
+        /*
         printf("string: %s\n", string);
         printf("array[count] is NULL: %d\n", array[count] == NULL);
         printf("arg1->output is NULL: %d\n", arg1->output == NULL);
+        */
         (arg1->reducer)(string, array[count], arg1->output);
       }
       count = count + 1;
-      printf("ending A\n");
+      // printf("ending A\n");
       if (count > size) {
         array = (kvlist_t **) realloc(array, 2 * size * sizeof(kvlist_t *));
         size = size * 2;
@@ -78,14 +80,14 @@ void *reducer_prepare(void *arg) {
       kvlist_append(array[count], get_kv(current));
     }
     else {
-      printf("B\n");
+      // printf("B\n");
       kvlist_append(array[count], get_kv(current));
     }
-    printf("go\n");
+    // printf("go\n");
     current = get_next(current);
-    printf("ending loop\n");
+    // printf("ending loop\n");
   }
-  printf("ending\n");
+  // printf("ending\n");
   return NULL;
 }
 
@@ -112,7 +114,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
       current = get_next(current);
     }
   }
-  printf("Bench\n");
+  // printf("Bench\n");
   //Transititon from split to map phase
     /*
   for (int i = 0; i < (int) num_mapper; i = i + 1) {
@@ -139,7 +141,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
   for (int i = 0; i < (int) num_mapper; i = i + 1) {
     pthread_join(mapper_id[i], NULL);
   }
-  printf("Bench2\n");
+  // printf("Bench2\n");
   //Shuffle phase
   kvlist_t *lists3[num_reducer];
   kvlist_t *lists4[num_reducer];
@@ -154,7 +156,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
       current = get_next(current);
     }
   }
-  printf("Bench3\n");
+  // printf("Bench3\n");
   //Reduce phase
   pthread_t reducer_id[num_reducer];
   for (int i = 0; i < (int) num_reducer; i = i + 1) {
@@ -163,7 +165,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
     input2.output = lists4[i];
     pthread_create(reducer_id + i, NULL, (void *(*)(void *)) &reducer_prepare, (void *) &input2);
   }
-  printf("Bench4\n");
+  // printf("Bench4\n");
   for (int i = 0; i < (int) num_reducer; i = i + 1) {
     pthread_join(reducer_id[i], NULL);
   }
