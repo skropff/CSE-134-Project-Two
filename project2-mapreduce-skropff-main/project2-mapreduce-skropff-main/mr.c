@@ -116,6 +116,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
       break;
     }
     else {
+      printf("appending\n");
       kvlist_append(lists[i % num_mapper], get_kv(current));
       current = get_next(current);
     }
