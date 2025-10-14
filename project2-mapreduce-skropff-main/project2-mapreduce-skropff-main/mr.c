@@ -41,6 +41,7 @@ void *mapper_prepare(void *arg) {
 void *reducer_prepare(void *arg);
 
 void *reducer_prepare(void *arg) {
+  printf("beginning\n");
   reduce_group *arg1;
   arg1 = (reduce_group *) arg;
   kvlist_sort(arg1->lst);
@@ -75,6 +76,7 @@ void *reducer_prepare(void *arg) {
     }
     current = get_next(current);
   }
+  printf("ending\n")(
   return NULL;
 }
 
