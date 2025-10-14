@@ -65,6 +65,7 @@ void *reducer_prepare(void *arg) {
         (arg1->reducer)(string, array[count], arg1->output);
       }
       count = count + 1;
+      printf("ending A\n");
       if (count > size) {
         array = (kvlist_t **) realloc(array, 2 * size * sizeof(kvlist_t *));
         size = size * 2;
@@ -72,7 +73,6 @@ void *reducer_prepare(void *arg) {
       array[count] = kvlist_new();
       string = (get_kv(current))->key;
       kvlist_append(array[count], get_kv(current));
-      printf("ending A\n");
     }
     else {
       printf("B\n");
