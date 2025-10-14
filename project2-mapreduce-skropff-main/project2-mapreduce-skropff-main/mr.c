@@ -75,6 +75,7 @@ void *reducer_prepare(void *arg) {
     else {
       kvlist_append(array[count], get_kv(current));
     }
+    printf("go\n");
     current = get_next(current);
     printf("ending loop\n");
   }
