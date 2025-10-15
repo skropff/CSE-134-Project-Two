@@ -106,8 +106,8 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
   kvlist_t *lists2[num_mapper];
   kvlist_node_t *current;
   pthread_t mapper_id[num_mapper];
-  map_group input1;
-  reduce_group input2;
+  map_group input1[num_mapper];
+  reduce_group input2[num_reducer];
   for (int i = 0; i < (int) num_mapper; i = i + 1) {
     lists[i] = kvlist_new();
     lists2[i] = kvlist_new();
@@ -142,11 +142,11 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
     
   //Map phase
   for (int i = 0; i < (int) num_mapper; i = i + 1) {
-    input1.mapper = mapper;
-    input1.input = lists[i];
-    input1.output = lists2[i];
+    (input1[i]).mapper = mapper;
+    (input1[i]).input = lists[i];
+    (input1[i]).output = lists2[i];
     printf("list is empty: %d\n", get_head(lists[i]) == NULL); 
-    pthread_create(mapper_id + i, NULL, (void *(*)(void *)) &mapper_prepare, (void *) (&input1));
+    pthread_create(mapper_id + i, NULL, (void *(*)(void *)) &mapper_prepare, (void *) (input1 + i));
   }
   for (int i = 0; i < (int) num_mapper; i = i + 1) {
     pthread_join(mapper_id[i], NULL);
@@ -171,10 +171,10 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
   //Reduce phase
   pthread_t reducer_id[num_reducer];
   for (int i = 0; i < (int) num_reducer; i = i + 1) {
-    input2.reducer = reducer;
-    input2.lst = lists3[i];
-    input2.output = lists4[i];
-    pthread_create(reducer_id + i, NULL, (void *(*)(void *)) &reducer_prepare, (void *) &input2);
+    (input2[i]).reducer = reducer;
+    (input2[i}).lst = lists3[i];
+    (input2[i]).output = lists4[i];
+    pthread_create(reducer_id + i, NULL, (void *(*)(void *)) &reducer_prepare, (void *) (input2 + i));
   }
   // printf("Bench4\n");
   for (int i = 0; i < (int) num_reducer; i = i + 1) {
