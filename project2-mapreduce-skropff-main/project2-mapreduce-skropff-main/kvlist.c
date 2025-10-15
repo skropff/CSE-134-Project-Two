@@ -76,15 +76,17 @@ void kvlist_append(kvlist_t *list, kvpair_t *pair) {
   node->kv = pair;
   node->next = NULL;
   if (list->head == NULL) {
+    /*
     printf("x\n");
     printf("key: %s\n", (node->kv)->key);
     printf("value: %s\n", (node->kv)->value);
+    */
     list->head = node;
   } else {
-    printf("y\n");
-    printf("y list->tail is NULL: %d\n", list->tail == NULL);
+    // printf("y\n");
+    // printf("y list->tail is NULL: %d\n", list->tail == NULL);
     list->tail->next = node;
-    printf("z\n");
+    // printf("z\n");
   }
   list->tail = node;
 }
