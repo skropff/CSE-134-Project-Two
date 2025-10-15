@@ -172,7 +172,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
   pthread_t reducer_id[num_reducer];
   for (int i = 0; i < (int) num_reducer; i = i + 1) {
     (input2[i]).reducer = reducer;
-    (input2[i}).lst = lists3[i];
+    (input2[i]).lst = lists3[i];
     (input2[i]).output = lists4[i];
     pthread_create(reducer_id + i, NULL, (void *(*)(void *)) &reducer_prepare, (void *) (input2 + i));
   }
