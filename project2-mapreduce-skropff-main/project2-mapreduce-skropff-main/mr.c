@@ -28,13 +28,13 @@ void *mapper_prepare(void *arg) {
   kvlist_node_t *current;
   current = get_head(arg1->input);
   // start = current;
-  printf("current is NULL mapping: %d\n", current == NULL);
+  // printf("current is NULL mapping: %d\n", current == NULL);
   while (current != NULL) {
       // start->value = (char *) realloc(start->value, strlen(statt->value) + strlen(current->value) + 2);
       // strcat(start->value, space);
       // strcat(start->value, current->value);
       (arg1->mapper)(get_kv(current), arg1->output);
-      printf("mapping\n");
+      // printf("mapping\n");
       current = get_next(current);
     }
   return NULL;
@@ -61,9 +61,11 @@ void *reducer_prepare(void *arg) {
   string = NULL;
   while (current != NULL) {
     // printf("beginning loop\n");
+    /*
     if (current != NULL) {
       printf("current string: %s\n", (get_kv(current))->key);
     }
+    */
     if (string == NULL || (strcmp((get_kv(current))->key, string) != 0)) {
       // printf("A\n");
       if (string != NULL) {
@@ -118,7 +120,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
       break;
     }
     else {
-      printf("appending\n");
+      // printf("appending\n");
       kvlist_append(lists[i % num_mapper], get_kv(current));
       current = get_next(current);
     }
@@ -145,7 +147,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
     (input1[i]).mapper = mapper;
     (input1[i]).input = lists[i];
     (input1[i]).output = lists2[i];
-    printf("list is empty: %d\n", get_head(lists[i]) == NULL); 
+    // printf("list is empty: %d\n", get_head(lists[i]) == NULL); 
     pthread_create(mapper_id + i, NULL, (void *(*)(void *)) &mapper_prepare, (void *) (input1 + i));
   }
   for (int i = 0; i < (int) num_mapper; i = i + 1) {
@@ -163,12 +165,12 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
     current = get_head(lists2[i]);
     while (current != NULL) {
       kvlist_append(lists3[(hash(get_kv(current)->key)) % num_reducer], get_kv(current));
-      printf("appending 1\n");
+      // printf("appending 1\n");
       current = get_next(current);
     }
   }
   // printf("Bench3\n");
-  //Reduce phase
+  // Reduce phase
   pthread_t reducer_id[num_reducer];
   for (int i = 0; i < (int) num_reducer; i = i + 1) {
     (input2[i]).reducer = reducer;
@@ -182,6 +184,6 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
   }
   for (int i = 0; i < (int) num_reducer; i = i + 1) {
     kvlist_extend(output, lists4[i]);
-    printf("extending\n");
+    // printf("extending\n");
   }
 }
