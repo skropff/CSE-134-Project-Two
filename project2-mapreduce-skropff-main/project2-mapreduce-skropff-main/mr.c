@@ -145,6 +145,7 @@ void map_reduce(mapper_t mapper, size_t num_mapper, reducer_t reducer,
     input1.mapper = mapper;
     input1.input = lists[i];
     input1.output = lists2[i];
+    printf("list is empty: %d\n", get_head(lists[i]) == NULL); 
     pthread_create(mapper_id + i, NULL, (void *(*)(void *)) &mapper_prepare, (void *) (&input1));
   }
   for (int i = 0; i < (int) num_mapper; i = i + 1) {
